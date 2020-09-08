@@ -1,9 +1,17 @@
-import express, { response } from "express";
+import 'dotenv/config';
+import express from 'express';
+import routes from './routes';
+
+import MongoDB from './middlewares/MongoDB';
 
 const app = express();
 
-app.get("/", (request, response) => {
-  return response.json({ message: "Hello World" });
-});
+app.use(express.json());
+app.use(routes);
 
-app.listen(3333);
+app.get('/', (request, response) => response.json({ message: 'Hello World' }));
+
+app.listen(process.env.SERVER_PORT, async () => {
+  console.log(`\n\n 🟢 Server running on port ${process.env.SERVER_PORT} \n`);
+  await MongoDB();
+});
