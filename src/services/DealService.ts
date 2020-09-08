@@ -24,8 +24,6 @@ export default class DealService {
 
 	    const { data: deals } = await response;
 
-	    // await DealSchema.deleteMany({});
-
 	    const dealsIds = deals.map((deal) => String(deal.id));
 
 	    const existentDeals = await DealSchema.find();
@@ -65,7 +63,7 @@ export default class DealService {
 	        return {
 	          dealId: deal.id,
 	          date: convertDate(deal.won_time),
-	          orgId: deal.org_id.owner_id,
+	          orgId: deal.org_id.name,
 	          value: deal.value,
 	          xml,
 	          sentToBling: false,
